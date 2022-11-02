@@ -1,0 +1,23 @@
+title {
+
+}
+
+header {
+	display: inline-block;
+}
+
+header:link {
+	background-color: #cfe0e8;
+	color: #6396D4;
+}
+
+header:visited {
+	background-color: #87bdd8;
+	color: ghostwhite;
+}
+
+header:hover {
+	background-color: #80ced6;k
+	color: white;
+}
+
