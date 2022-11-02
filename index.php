@@ -11,13 +11,24 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="booth_styles/main.css">
 	<title>Virtual Booth CMS</title>
 	<?php include 'header.php'; ?>
 </head>
 <body>
-	<?php
-		echo 'Jumlah Lantai: '.$lantai.'<br>';
-		echo 'Jumlah VBooth: '.$jumbooth.'<br';
-	?>
+	<div class='information'>
+		<table>
+			<tr>
+				<td>Jumlah lantai</td>
+				<td>:</td>
+				<td><?php echo $lantai; ?></td>
+			</tr>
+			<tr>
+				<td>Jumlah booth</td>
+				<td>:</td>
+				<td><?php echo $jumbooth; ?></td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

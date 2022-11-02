@@ -1,0 +1,172 @@
+:root {
+  --dark: rgb(0, 0, 0);
+  --primary: rgb(0, 0, 64);
+  --accent: rgb(242, 121, 0);  
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "Comic Sans MS";
+}
+
+header{
+	text-align: center;
+	background-color: var(--primary);
+}
+
+header a{
+	display: inline-block;
+	width: 200px;
+	margin: 10px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+}
+
+header a:hover{
+	color: var(--accent);
+}
+
+.content{
+	text-align: center;
+}
+
+.information{
+	width: 100%;
+	text-align: center;
+}
+
+.information table{
+	margin: 0 auto;
+}
+
+.empty{
+	color: var(--dark);
+	background-color: grey;
+}
+
+.booth_container{
+	font-size: 20px;
+	display: inline-block;
+	margin: 15px;
+	width: 250px;
+	color: white;
+	background-color: var(--primary);
+}
+
+.booth_container a{
+	display: inline-block;
+	width: 40px;
+	padding: 2px;
+	text-align: center;
+	text-decoration: none;
+	border: solid black 1px;
+	color: var(--dark);
+	background-color: white;
+	font-size: 12px;
+}
+
+.booth_container a:hover{
+	background-color: var(--accent);
+	color: var(--primary);
+}
+
+.floor_selection{
+	text-align: center;
+	width: 100%;
+	font-size: 15px;
+}
+
+.floor_selection a{
+	display: inline-block;
+	font-size: 20px;
+	width: 20px;
+	text-decoration: none;
+	color: var(--dark);
+}
+
+.floor_selection a:hover{
+	color: var(--accent);
+}
+
+.floor_selection .selected{
+	color: var(--accent);
+}
+
+.floor_selection .button{
+	display: inline-block;
+	width: 100px;
+	font-size: 20px;
+	text-decoration: none;
+	background-color: var(--primary);
+	color: white;
+}
+
+.floor_selection .button:hover{
+	background-color: var(--accent);
+	color: var(--dark);
+}
+
+.content .booth_name{
+	font-size: 35px;
+}
+
+.content table{
+	margin: 0 auto;
+}
+
+.content table select{
+	width: 480px;
+	font-family: "Comic Sans MS";
+}
+
+.content table textarea{
+	width: 480px;
+	height: 250px;
+	font-family: "Comic Sans MS";
+}
+
+.content table th, td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+.content table button{
+	display: inline-block;
+	width: 100px;
+	font-size: 20px;
+	text-decoration: none;
+	background-color: var(--primary);
+	color: white;
+	margin: 10px;
+	border: solid 1px black;
+	padding: 5px;
+}
+
+.content table button:hover{
+	background-color: var(--accent);
+	color: var(--dark);
+	cursor: pointer;
+}
+
+.content table a{
+	display: inline-block;
+	width: 100px;
+	font-size: 20px;
+	text-decoration: none;
+	background-color: var(--primary);
+	color: white;
+	margin: 10px;
+	border: solid 1px black;
+	padding: 3px;
+}
+
+.content table a:hover{
+	background-color: var(--accent);
+	color: var(--dark);
+	cursor: pointer;
+}

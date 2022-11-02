@@ -10,6 +10,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="booth_styles/main.css">
 	<title></title>
 </head>
 <body>
@@ -50,7 +51,7 @@
 		$videotmp = $_FILES['booth_video']['tmp_name'];
 		$folder_video = "booth_video/".$videofile;
 
-		$editbooth_query = $con->query("UPDATE floor SET booth_type='$type',booth_text='$text',booth_image='$imagefile',booth_video='$videofile' WHERE id='$booth_id'");
+		$editbooth_query = $con->query("UPDATE floor SET booth_type='$type',booth_text='$text',booth_image='$imagefile',booth_video='$videofile' WHERE booth_id='$booth_id'");
 
 		if(move_uploaded_file($imagetmp, $folder_image) && move_uploaded_file($videotmp, $folder_video)){
 			header("location:booth.php");
