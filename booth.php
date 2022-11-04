@@ -22,7 +22,7 @@
 <body>
 	<div class='content'>
 		<?php 
-			$cek_floor = $con->query("SELECT * FROM floor LIMIT ".$start.",".$limit);
+			$cek_floor = $con->query("SELECT * FROM floor WHERE floor_level='$page'");
 			while($floor = $cek_floor->fetch_array()){
 				$booth_id = $floor[0];
 				if(($floor[3]==NULL)&&($floor[4]==NULL)&&($floor[5]==NULL)&&($floor[6]==NULL)){
