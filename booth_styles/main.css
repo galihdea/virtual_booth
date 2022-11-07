@@ -128,6 +128,11 @@ header a:hover{
 	font-family: "Comic Sans MS";
 }
 
+.content table input{
+	width: 480px;
+	font-family: "Comic Sans MS";
+}
+
 .content table th, td {
   padding-top: 10px;
   padding-bottom: 20px;

@@ -1,8 +1,26 @@
 <?php
 	include 'koneksi.php';
-	$booth_id = $_GET['id'];
-	$booth_query = $con->query("SELECT * FROM floor WHERE id='$booth_id'");
-	$booth = $booth_query->fetch_array();
+	// $booth_id = $_GET['id'];
+	// $booth_query = $con->query("SELECT * FROM floor WHERE id='$booth_id'");
+	// $booth = $booth_query->fetch_array();
+
+	$floor = $_GET['floor'];
+	$booth_index = $_GET['booth'];
+
+	$booth = $con->query("SELECT * FROM floor WHERE floor_level='$floor' AND booth_slot_index='$booth_index'")->fetch_array();
+
+	$booth_type = null;
+	$booth_text = null;
+	$booth_image = null;
+	$booth_video = null;
+
+	if($booth != null){
+		$booth_type = $booth['booth_type'];
+		$booth_text = $booth['booth_text'];
+		$booth_image = $booth['booth_image'];
+		$booth_video = $booth['booth_video'];
+	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +33,7 @@
 </head>
 <body>
 	<div class="content">
-		<div class="booth_name">Booth <?php echo $booth['floor_level'].'.'.$booth['booth_slot_index'];?></div>
+		<div class="booth_name">Booth <?php echo $floor.'.'.$booth_index?></div>
 		
 		<form method="POST" enctype="multipart/form-data">
 			<table>
@@ -24,8 +42,8 @@
 					<td>:</td>
 					<td>
 						<select name="booth_type">
-							<option value="Anchor" <?php if ($booth['booth_type']=='Anchor') echo "selected";?>>Anchor</option>
-							<option value="Bakery" <?php if ($booth['booth_type']=='Bakery') echo "selected";?>>Bakery</option>
+							<option value="Anchor" <?php if ($booth_type=='Anchor') echo "selected";?>>Anchor</option>
+							<option value="Bakery" <?php if ($booth_type=='Bakery') echo "selected";?>>Bakery</option>
 						</select>
 					</td>
 				</tr>
@@ -33,27 +51,25 @@
 					<td>Booth Text</td>
 					<td>:</td>
 					<td>
-						<textarea name="booth_text"><?php echo $booth['booth_text'];?></textarea>
+						<textarea name="booth_text"><?php echo $booth_text;?></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>Booth Image</td>
 					<td>:</td>
 					<td>
-						<img src="booth_image/<?php echo $booth['booth_image'];?>" style="width:480px;">
+						<img src="<?php echo $booth_image;?>" style="width:480px;">
 						<br>
-						<input type="file" name="booth_image">
+						<input type="text" name="booth_image" value="<?php echo $booth_image;?>">
 					</td>
 				</tr>
 				<tr>
 					<td>Booth Video</td>
 					<td>:</td>
 					<td>
-						<video width="480px" height="320px" controls>
-							<source src="<?php echo "booth_video/".$booth['booth_video'];?>" type="video/mp4">
-						</video>
+						<iframe width="480px" height="320px" src="<?php echo $booth_video;?>"></iframe>
 						<br>
-						<input type="file" name="booth_video">
+						<input type="text" name="booth_video" value="<?php echo $booth_video;?>">
 					</td>
 				</tr>
 				<tr>
@@ -70,20 +86,49 @@
 </body>
 </html>
 <?php
+	function getYoutubeEmbedUrl($url)
+	{
+	     $shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_-]+)\??/i';
+	     $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+	    if (preg_match($longUrlRegex, $url, $matches)) {
+	        $youtube_id = $matches[count($matches) - 1];
+	    }
+
+	    if (preg_match($shortUrlRegex, $url, $matches)) {
+	        $youtube_id = $matches[count($matches) - 1];
+	    }
+	    return 'https://www.youtube.com/embed/' . $youtube_id ;
+	}
+?>
+
+<?php
 	if(isset($_POST['edit'])){
 		$type = $_POST['booth_type'];
 		$text = $_POST['booth_text'];
-		$imagefile = $_FILES['booth_image']['name'];
-		$imagetmp = $_FILES['booth_image']['tmp_name'];
-		$folder_image = "booth_image/".$imagefile;
-		$videofile = $_FILES['booth_video']['name'];
-		$videotmp = $_FILES['booth_video']['tmp_name'];
-		$folder_video = "booth_video/".$videofile;
+		$image = $_POST['booth_image'];
+		$video = getYoutubeEmbedUrl($_POST['booth_video']);
 
-		$editbooth_query = $con->query("UPDATE floor SET booth_type='$type',booth_text='$text',booth_image='$imagefile',booth_video='$videofile' WHERE id='$booth_id'");
+		// $imagefile = $_FILES['booth_image']['name'];
+		// $imagetmp = $_FILES['booth_image']['tmp_name'];
+		// $folder_image = "booth_image/".$imagefile;
+		// $videofile = $_FILES['booth_video']['name'];
+		// $videotmp = $_FILES['booth_video']['tmp_name'];
+		// $folder_video = "booth_video/".$videofile;
 
-		if(move_uploaded_file($imagetmp, $folder_image) && move_uploaded_file($videotmp, $folder_video)){
-			header("location:booth.php");
+		if($booth != null){
+			$con->query("UPDATE floor SET booth_type='$type',booth_text='$text',booth_image='$image',booth_video='$video' WHERE floor_level='$floor' AND booth_slot_index='$booth_index'");
 		}
+		else{
+			$con->query("INSERT INTO floor(floor_level, booth_slot_index, booth_type, booth_text, booth_image, booth_video) VALUES ('$floor', '$booth_index', '$type', '$text', '$image', '$video')");
+		}
+
+		// $editbooth_query = $con->query("UPDATE floor SET booth_type='$type',booth_text='$text',booth_image='$imagefile',booth_video='$videofile' WHERE id='$booth_id'");
+
+		// if(move_uploaded_file($imagetmp, $folder_image) && move_uploaded_file($videotmp, $folder_video)){
+		// 	header("location:booth.php");
+		// }
+
+		header("location:booth.php");
 	}
 ?>
