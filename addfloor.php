@@ -10,7 +10,5 @@
 
 	$_SESSION["total_floor"] = ($con->query("SELECT MAX(floor_level) FROM floor")->fetch_array()[0])+1;
 
-	echo $_SESSION["total_floor"];
-
 	header("location: booth.php");
 ?>

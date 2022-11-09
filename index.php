@@ -5,6 +5,10 @@
 	$lantai = $jumlantai['max'];
 	$jum_booth = $con->query("SELECT * FROM floor");
 	$jumbooth = $jum_booth->num_rows;
+
+	session_start();
+
+	session_destroy();
 ?>
 <!DOCTYPE html>
 <html>

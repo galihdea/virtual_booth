@@ -48,13 +48,13 @@
 			
 			// }
 
-			for ($index=1; $index<=$max_booth ; $index++) { 
+			for ($index=0; $index<$max_booth ; $index++) { 
 				$booth = $con->query("SELECT * FROM floor WHERE floor_level='$page' AND booth_slot_index='$index'")->fetch_array();
 				if($booth == null){
 					echo '<div class="booth_container" style="background-color:grey">';
 					echo '<div class="booth_name">Booth '.$page.'.'.$index.'</div>';
 					echo '<a href="lihatbooth.php?floor='.$page.'&booth='.$index.'">Add</a> ';
-					echo '<a href="hapusbooth.php?floor='.$page.'&booth='.$index.'">Reset</a> ';
+					// echo '<a href="hapusbooth.php?floor='.$page.'&booth='.$index.'">Reset</a> ';
 					echo '</div>';
 				}
 				else{
